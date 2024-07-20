@@ -1,1 +1,10 @@
 see in the commits
+• Full migration, refactor of the application on the web, on django,
+• The ability to operate the site on the global Internet, support for all devices (tunneling);
+• Redesign, global settings for page parameters;
+• Listening and listening to sentences, fully operational;
+• Expansion and addition of the database of words and sentences for each function, New topics;
+• Flash cards, with the ability to record and delete;
+• Fully prescribed requirements for the deployment of the service;
+• * New registration and authorization, password hashing.
+• Fixed a lot of errors in the previous application, database migration, used new libraries to implement functions, non-working links, cloning and project operation on any devices, ordered directories, size optimization.
