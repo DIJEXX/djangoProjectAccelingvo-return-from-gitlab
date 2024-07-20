@@ -1,0 +1,43 @@
+version: "3.3"
+services:
+  gitlab:
+    container_name: gitlab
+    hostname: localhost
+    image: gitlab/gitlab-ce:16.6.0-ce.0
+    restart: unless-stopped
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        gitlab_rails['time_zone'] = 'Europe/Moscow'
+        external_url 'http://localhost:80'
+        #letsencrypt['enable'] = false
+        nginx['listen_port'] = 81
+        gitlab_rails['gitlab_shell_ssh_port'] = 2222
+        # disable almost all optional services
+        gitlab_kas['enable'] = false
+        gitlab_rails['smtp_enable'] = false
+        gitlab_rails['microsoft_graph_mailer_enabled'] = false
+        mattermost['enable'] = false
+        mattermost_nginx['enable'] = false
+        prometheus['enable'] = false
+        alertmanager['enable'] = false
+        prometheus_monitoring['enable'] = false
+        grafana['enable'] = false
+        postgres_exporter['enable'] = false
+        pgbouncer_exporter['enable'] = false
+        node_exporter['enable'] = false
+        redis_exporter['enable'] = false
+        monitoring_role['enable'] = false
+        gitlab_exporter['enable'] = false
+        # configure for low-memory usage
+        puma['worker_processes'] = 0
+        sidekiq['max_concurrency'] = 9
+        # disable service ping (telemetry)
+        gitlab_rails['usage_ping_enabled'] = false
+    shm_size: 256m
+    ports:
+      - 127.0.0.1:8080:80 # HTTP
+      - 2222:22 # SSH
+    volumes:
+      - ./config:/etc/gitlab
+      - ./logs:/var/log/gitlab
+      - ./data:/var/opt/gitlab
